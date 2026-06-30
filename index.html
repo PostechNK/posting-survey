@@ -203,6 +203,19 @@ window.addEventListener('load', function () {
   loadDraftList();
 });
 
+function startNew() {
+  var val = document.getElementById('company-input').value.trim();
+  if (!val) { toast('⚠️ 会社名を入力してください', true); return; }
+  if (ITEMS.length === 0) {
+    // まだ読み込み中なら500ms待ってリトライ
+    toast('読み込み中…少しお待ちください', false);
+    setTimeout(function() { startNew(); }, 500);
+    return;
+  }
+  company = val; state = {};
+  renderForm(); showScreen('s-form');
+}
+
 function loadDraftList() {
   apiGet({ action: 'getDraftList' }).then(function(r) {
     if (!r.success || r.drafts.length === 0) return;
@@ -234,13 +247,6 @@ function showScreen(id) {
 function goTop()     { showScreen('s-top'); }
 function goCompany() { showScreen('s-company'); }
 
-function startNew() {
-  var val = document.getElementById('company-input').value.trim();
-  if (!val) { toast('⚠️ 会社名を入力してください', true); return; }
-  if (ITEMS.length === 0) { toast('⚠️ 項目を読み込み中です…', true); return; }
-  company = val; state = {};
-  renderForm(); showScreen('s-form');
-}
 
 function resumeDraft(co) {
   if (ITEMS.length === 0) { toast('⚠️ 項目を読み込み中です…', true); return; }
