@@ -58,7 +58,7 @@ input, textarea, select, button { font-size: 16px; }
 .prog-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s; }
 
 .list-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-.list { padding: 10px; padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+.list { padding: 10px; padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
 
 .card { background: var(--card); border: 2px solid var(--border); border-radius: 16px; margin-bottom: 10px; overflow: hidden; }
 .card.partial { border-color: rgba(245,158,11,.6); }
@@ -93,10 +93,8 @@ textarea:focus { border-color: var(--accent); outline: none; }
 .photo-slot.filled    { border-color: rgba(0,229,160,.5); }
 .photo-slot.uploading { border-color: rgba(0,200,255,.5); }
 .slot-label { font-size: 12px; color: var(--muted); font-weight: 700; padding: 10px 12px 0; }
-.slot-btns { display: flex; gap: 8px; padding: 8px 12px 12px; }
-.slot-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 13px 8px; border-radius: 10px; font-weight: 700; border: 2px solid var(--border); background: var(--card); color: var(--muted); }
-.slot-btn.cam { border-color: rgba(0,200,255,.5); color: var(--accent); }
-.slot-btn.lib { border-color: rgba(124,58,237,.5); color: #a78bfa; }
+.slot-btns { padding: 8px 12px 12px; }
+.slot-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 10px; font-weight: 700; border: 2px solid rgba(0,200,255,.5); background: var(--card); color: var(--accent); }
 input[type=file] { display: none; }
 .slot-uploading-body { display: flex; align-items: center; gap: 10px; padding: 14px 12px; }
 .slot-spin { width: 20px; height: 20px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0; }
@@ -111,7 +109,7 @@ input[type=file] { display: none; }
 .slot-retake-lib { background: rgba(0,0,0,.75); color: #a78bfa; border-left: 1px solid rgba(255,255,255,.1); }
 .slot-del { padding: 11px 14px; background: rgba(255,107,107,.25); color: var(--err); border: none; border-left: 1px solid rgba(255,255,255,.1); }
 
-.footer { flex-shrink: 0; background: var(--card); border-top: 2px solid var(--border); display: flex; gap: 10px; padding: 12px 14px; padding-bottom: max(14px, env(safe-area-inset-bottom)); }
+.footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 2px solid var(--border); display: flex; gap: 10px; padding: 12px 14px; padding-bottom: max(14px, env(safe-area-inset-bottom)); z-index: 100; }
 .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 16px 8px; border-radius: 14px; font-weight: 700; border: none; }
 .btn-draft { background: var(--card2); color: var(--accent); border: 2px solid rgba(0,200,255,.4); }
 .btn-done  { background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #fff; }
@@ -341,10 +339,8 @@ function makeEmptySlot(i, j) {
   div.innerHTML =
     '<div class="slot-label">写真 ' + (j+1) + '</div>' +
     '<div class="slot-btns">' +
-      '<button class="slot-btn cam" onclick="trigCam(' + i + ',' + j + ')">📷 カメラ</button>' +
-      '<button class="slot-btn lib" onclick="trigLib(' + i + ',' + j + ')">🖼 ライブラリ</button>' +
+      '<button class="slot-btn" onclick="trigLib(' + i + ',' + j + ')">📷 写真を添付</button>' +
     '</div>' +
-    '<input type="file" id="cam' + i + '_' + j + '" accept="image/*" capture="environment" onchange="onPhoto(' + i + ',' + j + ',this)">' +
     '<input type="file" id="lib' + i + '_' + j + '" accept="image/*" onchange="onPhoto(' + i + ',' + j + ',this)">';
   return div;
 }
@@ -368,17 +364,14 @@ function makeFilledSlot(i, j, p) {
       '<img class="slot-img" src="' + src + '" alt="">' +
       '<div class="slot-badge">✅</div>' +
       '<div class="slot-overlay">' +
-        '<button class="slot-retake-cam" onclick="trigCam(' + i + ',' + j + ')">📷</button>' +
-        '<button class="slot-retake-lib" onclick="trigLib(' + i + ',' + j + ')">🖼</button>' +
+        '<button class="slot-retake-lib" onclick="trigLib(' + i + ',' + j + ')">🖼 変更</button>' +
         '<button class="slot-del" onclick="delPhoto(' + i + ',' + j + ')">✕</button>' +
       '</div>' +
     '</div>' +
-    '<input type="file" id="cam' + i + '_' + j + '" accept="image/*" capture="environment" onchange="onPhoto(' + i + ',' + j + ',this)">' +
     '<input type="file" id="lib' + i + '_' + j + '" accept="image/*" onchange="onPhoto(' + i + ',' + j + ',this)">';
   return div;
 }
 
-function trigCam(i, j) { document.getElementById('cam' + i + '_' + j).click(); }
 function trigLib(i, j) { document.getElementById('lib' + i + '_' + j).click(); }
 
 function onPhoto(i, j, input) {
