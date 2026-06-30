@@ -12,13 +12,17 @@
   --bg: #0d0d14; --card: #16161f; --card2: #1e1e2a;
   --border: #2c2c40; --text: #eaeaf2; --muted: #72728e;
 }
-html, body { width: 100%; min-height: 100%; background: var(--bg); color: var(--text); font-family: -apple-system, 'Hiragino Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+html, body {
+  width: 100%; min-height: 100%; overflow-x: hidden;
+  background: var(--bg); color: var(--text);
+  font-family: -apple-system, 'Hiragino Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 input, textarea, select, button { font-size: 16px; }
 
 .screen { display: none; min-height: 100vh; flex-direction: column; }
 .screen.active { display: flex; }
 
-/* TOP */
 #s-top { padding: 36px 20px 40px; padding-top: max(40px, env(safe-area-inset-top)); }
 .top-logo { font-size: 11px; letter-spacing: 4px; color: var(--accent); font-weight: 700; margin-bottom: 28px; }
 .top-title { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
@@ -37,16 +41,14 @@ input, textarea, select, button { font-size: 16px; }
 .draft-date { font-size: 13px; color: var(--muted); margin-top: 3px; }
 .draft-delete { font-size: 20px; color: var(--muted); padding: 6px; background: none; border: none; flex-shrink: 0; }
 
-/* 会社名 */
 #s-company { padding: 36px 20px; padding-top: max(40px, env(safe-area-inset-top)); }
 .back-btn { font-size: 15px; color: var(--muted); background: none; border: none; margin-bottom: 24px; display: flex; align-items: center; gap: 4px; }
 .sc-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
 .sc-sub { font-size: 15px; color: var(--muted); margin-bottom: 22px; }
 .sc-input { width: 100%; background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 16px; font-weight: 600; color: var(--text); margin-bottom: 16px; display: block; }
 .sc-input:focus { border-color: var(--accent); outline: none; }
-.sc-btn { width: 100%; padding: 16px; border-radius: 14px; font-size: 17px; font-weight: 700; background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #fff; border: none; }
+.sc-btn { width: 100%; padding: 16px; border-radius: 14px; font-weight: 700; background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #fff; border: none; }
 
-/* フォーム */
 #s-form { background: var(--bg); flex-direction: column; }
 .hdr { background: var(--card); border-bottom: 1px solid var(--border); padding: 10px 16px 8px; padding-top: max(10px, env(safe-area-inset-top)); flex-shrink: 0; }
 .hdr-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
@@ -58,36 +60,34 @@ input, textarea, select, button { font-size: 16px; }
 .list-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .list { padding: 10px; padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
 
-/* カード */
-.card { background: var(--card); border: 2px solid var(--border); border-radius: 14px; margin-bottom: 8px; overflow: hidden; }
+.card { background: var(--card); border: 2px solid var(--border); border-radius: 16px; margin-bottom: 10px; overflow: hidden; }
 .card.partial { border-color: rgba(245,158,11,.6); }
 .card.done    { border-color: rgba(0,229,160,.6); }
-.card-hdr { padding: 13px 14px; cursor: pointer; display: flex; align-items: flex-start; gap: 8px; }
-.num { font-size: 11px; color: var(--muted); font-weight: 700; flex-shrink: 0; padding-top: 2px; min-width: 22px; }
-.ttl { flex: 1; font-size: 14px; font-weight: 600; line-height: 1.45; color: var(--text); word-break: break-all; overflow-wrap: anywhere; }
-.card-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; padding-top: 2px; }
-.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+.card-hdr { padding: 18px 16px; cursor: pointer; display: flex; align-items: flex-start; gap: 10px; min-height: 64px; }
+.num { font-size: 13px; color: var(--muted); font-weight: 700; flex-shrink: 0; padding-top: 2px; min-width: 26px; }
+.ttl { flex: 1; font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--text); word-break: break-all; overflow-wrap: anywhere; min-width: 0; }
+.card-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; padding-top: 3px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
 .card.partial .dot { background: var(--warn); }
 .card.done    .dot { background: var(--done); }
-.chev { font-size: 16px; color: var(--muted); transition: transform .2s; }
+.chev { font-size: 18px; color: var(--muted); transition: transform .2s; }
 .card.open .chev { transform: rotate(180deg); }
 
-.pv { display: none; padding: 0 14px 12px; font-size: 13px; color: var(--muted); }
+.pv { display: none; padding: 0 16px 14px; font-size: 14px; color: var(--muted); }
 .pv.show { display: block; }
 .pv-text { color: var(--text); margin-bottom: 3px; word-break: break-all; }
 .pv-photo { color: var(--done); }
 
-.card-body { display: none; border-top: 1px solid var(--border); padding: 14px; }
+.card-body { display: none; border-top: 1px solid var(--border); padding: 16px; }
 .card.open .card-body { display: block; }
 .card.open .pv { display: none !important; }
 
-.sub-lbl { font-size: 12px; color: var(--muted); font-weight: 700; margin-bottom: 8px; margin-top: 16px; }
+.sub-lbl { font-size: 14px; color: var(--muted); font-weight: 700; margin-bottom: 10px; margin-top: 18px; }
 .sub-lbl:first-child { margin-top: 0; }
 
-textarea { width: 100%; background: var(--card2); border: 2px solid var(--border); border-radius: 12px; padding: 13px; line-height: 1.6; color: var(--text); font-family: inherit; resize: none; min-height: 100px; display: block; }
+textarea { width: 100%; background: var(--card2); border: 2px solid var(--border); border-radius: 12px; padding: 14px; line-height: 1.6; color: var(--text); font-family: inherit; resize: none; min-height: 110px; display: block; }
 textarea:focus { border-color: var(--accent); outline: none; }
 
-/* 写真 */
 .photo-slots { display: flex; flex-direction: column; gap: 10px; }
 .photo-slot { background: var(--card2); border: 2px solid var(--border); border-radius: 12px; overflow: hidden; }
 .photo-slot.filled    { border-color: rgba(0,229,160,.5); }
@@ -111,9 +111,8 @@ input[type=file] { display: none; }
 .slot-retake-lib { background: rgba(0,0,0,.75); color: #a78bfa; border-left: 1px solid rgba(255,255,255,.1); }
 .slot-del { padding: 11px 14px; background: rgba(255,107,107,.25); color: var(--err); border: none; border-left: 1px solid rgba(255,255,255,.1); }
 
-/* フッター */
-.footer { flex-shrink: 0; background: var(--card); border-top: 2px solid var(--border); display: flex; gap: 10px; padding: 10px 14px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
-.btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 15px 8px; border-radius: 14px; font-weight: 700; border: none; }
+.footer { flex-shrink: 0; background: var(--card); border-top: 2px solid var(--border); display: flex; gap: 10px; padding: 12px 14px; padding-bottom: max(14px, env(safe-area-inset-bottom)); }
+.btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 16px 8px; border-radius: 14px; font-weight: 700; border: none; }
 .btn-draft { background: var(--card2); color: var(--accent); border: 2px solid rgba(0,200,255,.4); }
 .btn-done  { background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #fff; }
 
@@ -146,7 +145,7 @@ input[type=file] { display: none; }
 </div>
 
 <div id="s-company" class="screen">
-  <button class="back-btn" onclick="goTop()">‹ 戻る</button>
+  <button class="back-btn" onclick="goTop()">&#8249; 戻る</button>
   <div class="sc-title">会社名を入力</div>
   <div class="sc-sub">調査対象の会社名を入力してください</div>
   <input class="sc-input" id="company-input" type="text" placeholder="例）○○ポスティング" autocomplete="off">
@@ -176,21 +175,20 @@ input[type=file] { display: none; }
 <div class="overlay" id="overlay"><div class="spin"></div><p id="overlay-msg">保存中…</p></div>
 
 <script>
-var GAS_URL    = 'https://script.google.com/a/macros/postech.co.jp/s/AKfycbzF1dr4p5BaxnlfEcTglRSB-0guazzhzAvW-b0-9AwOrewWMNsiR79ImTIn0nFixdPwHg/exec';
-var ITEMS      = [];
-var state      = {};
-var company    = '';
+var API    = 'https://gas-proxy.nakajima-743.workers.dev';
+var ITEMS  = [];
+var state  = {};
+var company = '';
 var MAX_PHOTOS = 3;
 
-// GAS APIを叩く関数
-function gasGet(params) {
-  var url = GAS_URL + '?' + Object.keys(params).map(function(k) {
+function apiGet(params) {
+  var url = API + '?' + Object.keys(params).map(function(k) {
     return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
   }).join('&');
   return fetch(url).then(function(r) { return r.json(); });
 }
-function gasPost(data) {
-  return fetch(GAS_URL, {
+function apiPost(data) {
+  return fetch(API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -198,7 +196,7 @@ function gasPost(data) {
 }
 
 window.addEventListener('load', function () {
-  gasGet({ action: 'getItems' }).then(function(r) {
+  apiGet({ action: 'getItems' }).then(function(r) {
     if (!r.success) { alert('項目読み込みエラー: ' + r.error); return; }
     ITEMS = r.items;
   }).catch(function(e) { alert('エラー: ' + e.message); });
@@ -206,7 +204,7 @@ window.addEventListener('load', function () {
 });
 
 function loadDraftList() {
-  gasGet({ action: 'getDraftList' }).then(function(r) {
+  apiGet({ action: 'getDraftList' }).then(function(r) {
     if (!r.success || r.drafts.length === 0) return;
     var sec = document.getElementById('draft-section');
     var lst = document.getElementById('draft-list');
@@ -221,7 +219,7 @@ function loadDraftList() {
           '<div class="draft-company">' + eh(d.company) + '</div>' +
           '<div class="draft-date">' + eh(d.savedAt) + (d.hasPhoto ? '　📷あり' : '') + '</div>' +
         '</div>' +
-        '<button class="draft-delete" onclick="delDraft(\'' + esc(d.company) + '\',event)">✕</button>';
+        '<button class="draft-delete" onclick="delDraft(&#39;' + eh(d.company) + '&#39;,event)">✕</button>';
       div.querySelector('.draft-info').addEventListener('click', function() { resumeDraft(d.company); });
       lst.appendChild(div);
     });
@@ -247,7 +245,7 @@ function startNew() {
 function resumeDraft(co) {
   if (ITEMS.length === 0) { toast('⚠️ 項目を読み込み中です…', true); return; }
   showOv('データを読み込み中…');
-  gasGet({ action: 'getDraftData', company: co }).then(function(r) {
+  apiGet({ action: 'getDraftData', company: co }).then(function(r) {
     hideOv();
     if (!r.success) { toast('⚠️ ' + r.error, true); return; }
     company = co; state = {};
@@ -270,7 +268,7 @@ function delDraft(co, e) {
   e.stopPropagation();
   if (!confirm(co + ' の途中保存を削除しますか？')) return;
   showOv('削除中…');
-  gasPost({ action: 'deleteDraft', company: co }).then(function() {
+  apiPost({ action: 'deleteDraft', company: co }).then(function() {
     hideOv(); toast('🗑 削除しました'); loadDraftList();
   }).catch(function(e) { hideOv(); toast('⚠️ ' + e.message, true); });
 }
@@ -387,7 +385,7 @@ function onPhoto(i, j, input) {
   var reader = new FileReader();
   reader.onload = function(e) {
     var dataUrl = e.target.result;
-    gasPost({
+    apiPost({
       action: 'uploadPhoto',
       company: company, itemNo: i+1, photoIndex: j+1,
       base64: dataUrl.split(',')[1] || '',
@@ -434,8 +432,8 @@ function rc(i, silent) {
   card.classList.remove('done', 'partial');
   var cls = sc(i);
   if (cls) card.classList.add(cls);
-  var s   = state[i] || {};
-  var pv  = document.getElementById('pv' + i);
+  var s  = state[i] || {};
+  var pv = document.getElementById('pv' + i);
   var html = '';
   if (s.text && s.text.trim()) {
     var short = s.text.length > 28 ? s.text.slice(0, 28) + '…' : s.text;
@@ -463,7 +461,7 @@ function buildItems() {
 
 function onDraft() {
   showOv('途中保存中…');
-  gasPost({ action: 'saveDraft', company: company, savedAt: new Date().toISOString(), items: buildItems() })
+  apiPost({ action: 'saveDraft', company: company, savedAt: new Date().toISOString(), items: buildItems() })
     .then(function(r) { hideOv(); r.success ? toast('💾 途中保存しました') : toast('⚠️ ' + r.error, true); })
     .catch(function(e) { hideOv(); toast('⚠️ ' + e.message, true); });
 }
@@ -475,7 +473,7 @@ function onComplete() {
   });
   if (!any) { toast('⚠️ 少なくとも1項目を入力してください', true); return; }
   showOv('保存中…');
-  gasPost({ action: 'saveComplete', company: company, savedAt: new Date().toISOString(), items: buildItems() })
+  apiPost({ action: 'saveComplete', company: company, savedAt: new Date().toISOString(), items: buildItems() })
     .then(function(r) {
       hideOv();
       if (r.success) { toast('✅ 保存完了！'); setTimeout(function() { goTop(); loadDraftList(); }, 1500); }
@@ -494,7 +492,6 @@ function toast(msg, isErr) {
 }
 function pad(n) { return (n < 10 ? '0' : '') + n; }
 function eh(s)  { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function esc(s) { return String(s).replace(/'/g, "&#39;"); }
 </script>
 </body>
 </html>
